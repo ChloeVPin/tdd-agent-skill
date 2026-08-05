@@ -1,0 +1,58 @@
+name: Report agent behaviour
+description: An agent behaved incorrectly with this skill loaded.
+title: "[Behaviour] "
+labels: [behaviour]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The skill exists to prevent specific failures. A report of a failure that it did not
+        prevent shows a gap.
+
+  - type: input
+    id: agent
+    attributes:
+      label: The agent
+      description: Give the tool and the model.
+      placeholder: Claude Code, Sonnet 4.5
+    validations:
+      required: true
+
+  - type: textarea
+    id: task
+    attributes:
+      label: The task
+      description: Give the instruction that you gave to the agent.
+    validations:
+      required: true
+
+  - type: textarea
+    id: behaviour
+    attributes:
+      label: What the agent did
+      description: Describe the incorrect behaviour. Include the real output if you have it.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What the agent had to do
+      description: Describe the correct behaviour.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: The category
+      options:
+        - The agent wrote the implementation first
+        - The agent did not verify the failure
+        - The agent used a test command that it did not verify
+        - The agent hardcoded a value or special-cased a test
+        - The agent weakened, skipped, or deleted a test
+        - The agent reported success without evidence
+        - Other
+    validations:
+      required: true

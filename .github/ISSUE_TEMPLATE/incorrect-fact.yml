@@ -1,0 +1,51 @@
+name: Report an incorrect fact
+description: A citation is wrong, or a claim has no support.
+title: "[Fact] "
+labels: [evidence]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is the most valuable type of report. An incorrect citation damages the trust in
+        all the others.
+
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      description: Give the file and the section.
+      placeholder: skills/test-driven-development/SKILL.md, the Evidence Summary table
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: The current text
+      description: Copy the exact text that is wrong.
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: >-
+        Explain the error. For example, the number is wrong, or the study does not support
+        the claim, or the claim is broader than the result.
+    validations:
+      required: true
+
+  - type: textarea
+    id: source
+    attributes:
+      label: The source
+      description: Give the citation that contradicts the current text. Include a link.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed
+    attributes:
+      label: The proposed text
+      description: Write the corrected text. This field is optional.

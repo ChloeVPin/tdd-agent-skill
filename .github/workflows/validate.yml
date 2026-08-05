@@ -1,0 +1,98 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate the skill
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install PyYAML
+        run: pip install pyyaml
+
+      - name: Validate the frontmatter
+        run: |
+          python3 - <<'PY'
+          import sys, yaml, pathlib
+
+          path = pathlib.Path('skills/test-driven-development/SKILL.md')
+          text = path.read_text(encoding='utf-8')
+
+          if not text.startswith('---'):
+              sys.exit('SKILL.md does not start with a frontmatter block.')
+
+          block = text.split('---')[1]
+          data = yaml.safe_load(block)
+
+          errors = []
+
+          name = data.get('name', '')
+          if not name:
+              errors.append('The name field is empty.')
+          if len(name) > 64:
+              errors.append(f'The name field is {len(name)} characters. The limit is 64.')
+          if not all(c.islower() or c.isdigit() or c == '-' for c in name):
+              errors.append('The name field must contain only lowercase letters, numbers, and hyphens.')
+
+          description = data.get('description', '')
+          if not description:
+              errors.append('The description field is empty.')
+          if len(description) > 1024:
+              errors.append(f'The description field is {len(description)} characters. The limit is 1024.')
+
+          if errors:
+              sys.exit('\n'.join(errors))
+
+          print(f'The frontmatter is valid. name={name}')
+          PY
+
+      - name: Check the length of the skill body
+        run: |
+          lines=$(wc -l < skills/test-driven-development/SKILL.md)
+          echo "SKILL.md has $lines lines."
+          if [ "$lines" -gt 500 ]; then
+            echo "SKILL.md is longer than 500 lines. Move detail into references/."
+            exit 1
+          fi
+
+      - name: Check that the reference file exists
+        run: test -f skills/test-driven-development/references/evidence.md
+
+      - name: Check the typography
+        run: |
+          python3 - <<'PY'
+          import pathlib, re, sys
+
+          banned = {'\u2014': 'em dash', '\u2013': 'en dash'}
+          emoji = re.compile('[\U0001F300-\U0001FAFF\u2600-\u27BF]')
+          found = False
+
+          for path in sorted(pathlib.Path('.').rglob('*.md')):
+              if '.git' in path.parts:
+                  continue
+              lines = path.read_text(encoding='utf-8').splitlines()
+              for number, line in enumerate(lines, 1):
+                  for character, label in banned.items():
+                      if character in line:
+                          print(f'{path}:{number}: found {label}')
+                          found = True
+                  if emoji.search(line):
+                      print(f'{path}:{number}: found emoji')
+                      found = True
+
+          if found:
+              sys.exit('The style standard prohibits these characters.')
+          print('The typography is correct.')
+          PY
