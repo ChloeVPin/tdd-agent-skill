@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/logo-256.png" alt="Project logo" width="128" height="128">
+
 # Test-Driven Development for AI Coding Agents
 
 **A research-backed Agent Skill that makes coding agents prove their work.**
@@ -26,6 +28,8 @@ the `SKILL.md` format.
 ```
 skills/test-driven-development/
 ├── SKILL.md                  the skill itself
+├── assets/
+│   └── logo.png              the project logo
 └── references/
     └── evidence.md           full citations, study designs, and limits
 ```

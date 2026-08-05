@@ -480,3 +480,4 @@ There are no exceptions without the explicit permission of the user.
 
 - `references/evidence.md`. Full citations, the design of each study, and the limits of each
   result.
+- `assets/logo.png`. The project logo.

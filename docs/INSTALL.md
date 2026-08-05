@@ -17,6 +17,8 @@ The directory that you copy is always the same:
 ```
 skills/test-driven-development/
 ├── SKILL.md
+├── assets/
+│   └── logo.png
 └── references/
     └── evidence.md
 ```

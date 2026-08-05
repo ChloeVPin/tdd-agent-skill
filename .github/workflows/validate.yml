@@ -67,8 +67,34 @@ jobs:
             exit 1
           fi
 
-      - name: Check that the reference file exists
-        run: test -f skills/test-driven-development/references/evidence.md
+      - name: Check that the bundled files exist
+        run: |
+          test -f skills/test-driven-development/references/evidence.md
+          test -f skills/test-driven-development/assets/logo.png
+          test -f assets/logo.png
+          test -f assets/logo-256.png
+          echo "The bundled files are present."
+
+      - name: Check that the README images resolve
+        run: |
+          python3 - <<'PY'
+          import pathlib, re, sys
+
+          readme = pathlib.Path('README.md')
+          text = readme.read_text(encoding='utf-8')
+          missing = []
+
+          for match in re.finditer(r'<img[^>]*src="([^"]+)"', text):
+              target = match.group(1)
+              if target.startswith(('http://', 'https://')):
+                  continue
+              if not (readme.parent / target).exists():
+                  missing.append(target)
+
+          if missing:
+              sys.exit('The README refers to images that do not exist: ' + ', '.join(missing))
+          print('The README images resolve.')
+          PY
 
       - name: Check the typography
         run: |
