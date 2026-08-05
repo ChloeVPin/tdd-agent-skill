@@ -1,17 +1,20 @@
 <div align="center">
 
-<img src="assets/logo-256.png" alt="Project logo" width="128" height="128">
+<img src="assets/logo-256.png" alt="TDD Agent Skill logo" width="128" height="128">
 
-# Test-Driven Development for AI Coding Agents
+# TDD Agent Skill
 
-**A research-backed Agent Skill that makes coding agents prove their work.**
+**A research-backed test-driven development skill for AI coding agents.**
+
+Makes Claude Code, OpenAI Codex, and any `SKILL.md` agent prove their work instead of
+reporting that the work is complete.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-1f2328.svg?style=flat-square)](LICENSE)
 [![Skill Version](https://img.shields.io/badge/skill-v2.0.0-1f2328.svg?style=flat-square)](skills/test-driven-development/SKILL.md)
 [![Format: Agent Skills](https://img.shields.io/badge/format-SKILL.md-1f2328.svg?style=flat-square)](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
 [![English: ASD-STE100](https://img.shields.io/badge/English-ASD--STE100-1f2328.svg?style=flat-square)](https://www.asd-ste100.org/)
 
-[Install](#install) · [Why This Exists](#why-this-exists) · [Evidence](skills/test-driven-development/references/evidence.md) · [Docs](docs/)
+[Install](#install) · [Why This Exists](#why-this-exists) · [Evidence](skills/test-driven-development/references/evidence.md) · [FAQ](#frequently-asked-questions) · [Docs](docs/)
 
 </div>
 
@@ -19,11 +22,13 @@
 
 ## What This Is
 
-This repository contains one Agent Skill. The skill teaches an AI coding agent to use
-test-driven development with hard gates that the agent cannot pass on belief alone.
+This repository contains one Agent Skill for test-driven development. The skill teaches an AI
+coding agent to write the test first, to run it, and to see it fail before it writes the
+implementation. The gates are hard. The agent cannot pass them because it believes that the
+code is correct.
 
-The skill works with Claude Code, Hermes Agent, VS Code, OpenAI Codex, and any tool that reads
-the `SKILL.md` format.
+The skill works with Claude Code, OpenAI Codex, GitHub Copilot in VS Code, Hermes Agent, and
+any tool that reads the `SKILL.md` Agent Skills format.
 
 ```
 skills/test-driven-development/
@@ -71,22 +76,22 @@ Each arrow is a gate. The agent passes a gate only when it has seen the output.
 ### Claude Code
 
 ```bash
-git clone https://github.com/chloevpin/tdd-skill-repo.git
-cp -R tdd-skill-repo/skills/test-driven-development ~/.claude/skills/
+git clone https://github.com/ChloeVPin/tdd-agent-skill.git
+cp -R tdd-agent-skill/skills/test-driven-development ~/.claude/skills/
 ```
 
 ### Hermes Agent
 
 ```bash
-git clone https://github.com/chloevpin/tdd-skill-repo.git
-cp -R tdd-skill-repo/skills/test-driven-development ~/.hermes/skills/software-development/
+git clone https://github.com/ChloeVPin/tdd-agent-skill.git
+cp -R tdd-agent-skill/skills/test-driven-development ~/.hermes/skills/software-development/
 ```
 
 ### VS Code
 
 ```bash
-git clone https://github.com/chloevpin/tdd-skill-repo.git
-cp -R tdd-skill-repo/skills/test-driven-development .github/skills/
+git clone https://github.com/ChloeVPin/tdd-agent-skill.git
+cp -R tdd-agent-skill/skills/test-driven-development .github/skills/
 ```
 
 ### Any other agent
@@ -114,6 +119,60 @@ The reference file states where each result is more narrow than the slogan that 
 The range of 40 to 90 per cent is one example. It comes from case studies, not from randomised
 trials, and the authors record the risk of selection effects.
 
+## Frequently Asked Questions
+
+### Which agents does this skill support?
+
+It supports Claude Code, OpenAI Codex, GitHub Copilot in VS Code, Hermes Agent, and any tool
+that reads the `SKILL.md` Agent Skills format. The skill is Markdown. It has no dependencies
+and it runs no scripts.
+
+### How is this different from other TDD skills?
+
+Other TDD skills give correct instructions for a person. This skill closes four gaps that
+appear when an agent follows those instructions. It gives evidence for each rule. It finds the
+test command of the repository instead of assuming one. It prohibits the specific actions that
+models use to fake a green test suite. It replaces coverage with a mutation check.
+
+### Why does the skill prohibit an increase in code coverage as a goal?
+
+Coverage measures execution. It does not measure assertion. A test with no assertion covers
+many lines. Inozemtseva and Holmes measured 31,000 test suites and found that coverage
+correlates only weakly with fault detection when suite size is controlled. The skill directs
+the agent to a mutation check instead.
+
+### What is reward hacking in a coding agent?
+
+Reward hacking is any action that satisfies the measured goal without the intended work. In a
+test harness, it looks like a hardcoded expected value, a special case for the exact input of
+the test, a weaker assertion, an added skip, or a call to `sys.exit(0)` that makes the runner
+report success. Anthropic and the EvilGenie benchmark have measured these actions in
+production coding agents. The skill lists them and prohibits them.
+
+### Does this skill slow the agent down?
+
+Yes, at the start. Four industrial teams measured 15 to 35 per cent more time at the start and
+40 to 90 per cent fewer pre-release defects. The trade is more time before the commit against
+less debugging after the release.
+
+### Can I use the skill for a language other than Python or JavaScript?
+
+Yes. The cycle is the same in all languages. Step 0 tells the agent to find the test command of
+the repository from the manifest, the wrapper scripts, and the CI configuration. The mutation
+table covers Python, JavaScript, TypeScript, Java, Go, and Rust.
+
+### Why is the documentation written in this style?
+
+The repository uses ASD-STE100 Simplified Technical English, which is the international
+standard for technical documentation. An agent reads these files as instructions. Ambiguous
+prose produces ambiguous behaviour. Read [docs/STYLE.md](docs/STYLE.md).
+
+### How do I verify that the skill is active?
+
+Give the agent a small task in a repository that has tests. The skill is active if the agent
+finds the test command first, writes one test, runs it, and shows you the failure before it
+writes the implementation. Read [docs/INSTALL.md](docs/INSTALL.md).
+
 ## Documentation
 
 | Document | Contents |
@@ -124,6 +183,7 @@ trials, and the authors record the risk of selection effects.
 | [docs/STYLE.md](docs/STYLE.md) | The ASD-STE100 writing rules for this repository |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | How to propose a change |
 | [CHANGELOG.md](CHANGELOG.md) | Version history |
+| [SECURITY.md](SECURITY.md) | How to report a security problem |
 
 ## Language Standard
 

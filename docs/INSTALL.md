@@ -8,8 +8,8 @@ scripts. To install it, copy the directory into the skills directory of your age
 Get the repository:
 
 ```bash
-git clone https://github.com/chloevpin/tdd-skill-repo.git
-cd tdd-skill-repo
+git clone https://github.com/ChloeVPin/tdd-agent-skill.git
+cd tdd-agent-skill
 ```
 
 The directory that you copy is always the same:

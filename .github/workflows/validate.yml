@@ -73,7 +73,34 @@ jobs:
           test -f skills/test-driven-development/assets/logo.png
           test -f assets/logo.png
           test -f assets/logo-256.png
+          test -f LICENSE
+          test -f SECURITY.md
+          test -f CODE_OF_CONDUCT.md
+          test -f CONTRIBUTING.md
+          test -f CHANGELOG.md
           echo "The bundled files are present."
+
+      - name: Check that the internal links resolve
+        run: |
+          python3 - <<'PY'
+          import pathlib, re, sys
+
+          missing = []
+          for source in pathlib.Path('.').rglob('*.md'):
+              if '.git' in source.parts:
+                  continue
+              text = source.read_text(encoding='utf-8')
+              for match in re.finditer(r'\]\((?!https?://|mailto:|#)([^)]+)\)', text):
+                  target = match.group(1).split('#')[0]
+                  if not target:
+                      continue
+                  if not (source.parent / target).exists():
+                      missing.append(f'{source}: {target}')
+
+          if missing:
+              sys.exit('These internal links do not resolve:\n' + '\n'.join(missing))
+          print('The internal links resolve.')
+          PY
 
       - name: Check that the README images resolve
         run: |
