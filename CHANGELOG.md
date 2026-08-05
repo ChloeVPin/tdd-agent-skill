@@ -3,6 +3,25 @@
 This project uses [Semantic Versioning](https://semver.org/) and the
 [Keep a Changelog](https://keepachangelog.com/) format.
 
+## [2.0.1] - 2026-08-05
+
+### Added
+
+- Installation with the skills CLI. The command is
+  `npx skills add ChloeVPin/tdd-agent-skill`. The CLI finds the agents that you have installed
+  and puts the skill in the correct directory for each one.
+- A frequently asked questions section in the README.
+- `SECURITY.md`, which states the actions that the skill instructs an agent to do.
+- `CODE_OF_CONDUCT.md`.
+- A CI gate for the internal links and for the community health files.
+
+### Changed
+
+- The badges now use a colour and a logo for each one. The previous badges used one dark
+  colour for the label and for the value, so they looked like plain grey chips.
+- The README leads with the search terms for the skill.
+- The manual copy is now the second installation method. It was the only method.
+
 ## [2.0.0] - 2026-08-05
 
 This release rebuilds the skill. It adds an evidence base and three sections that address

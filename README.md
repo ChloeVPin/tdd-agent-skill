@@ -9,10 +9,12 @@
 Makes Claude Code, OpenAI Codex, and any `SKILL.md` agent prove their work instead of
 reporting that the work is complete.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-1f2328.svg?style=flat-square)](LICENSE)
-[![Skill Version](https://img.shields.io/badge/skill-v2.0.0-1f2328.svg?style=flat-square)](skills/test-driven-development/SKILL.md)
-[![Format: Agent Skills](https://img.shields.io/badge/format-SKILL.md-1f2328.svg?style=flat-square)](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
-[![English: ASD-STE100](https://img.shields.io/badge/English-ASD--STE100-1f2328.svg?style=flat-square)](https://www.asd-ste100.org/)
+[![CI](https://img.shields.io/github/actions/workflow/status/ChloeVPin/tdd-agent-skill/validate.yml?style=flat-square&logo=githubactions&logoColor=white&label=CI)](https://github.com/ChloeVPin/tdd-agent-skill/actions/workflows/validate.yml)
+[![Install](https://img.shields.io/badge/install-npx_skills_add-000000?style=flat-square&logo=npm&logoColor=white)](#install)
+[![Agent Skills](https://img.shields.io/badge/SKILL.md-Agent_Skills-8A63D2?style=flat-square&logo=anthropic&logoColor=white)](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
+[![Release](https://img.shields.io/github/v/release/ChloeVPin/tdd-agent-skill?style=flat-square&logo=semanticrelease&logoColor=white&color=007ec6)](https://github.com/ChloeVPin/tdd-agent-skill/releases/latest)
+[![Licence: MIT](https://img.shields.io/badge/licence-MIT-3DA639?style=flat-square&logo=opensourceinitiative&logoColor=white)](LICENSE)
+[![English: ASD-STE100](https://img.shields.io/badge/English-ASD--STE100-0A7BBB?style=flat-square&logo=readthedocs&logoColor=white)](https://www.asd-ste100.org/)
 
 [Install](#install) · [Why This Exists](#why-this-exists) · [Evidence](skills/test-driven-development/references/evidence.md) · [FAQ](#frequently-asked-questions) · [Docs](docs/)
 
@@ -73,33 +75,67 @@ Each arrow is a gate. The agent passes a gate only when it has seen the output.
 
 ## Install
 
-### Claude Code
+### Recommended: the skills CLI
+
+```bash
+npx skills add ChloeVPin/tdd-agent-skill
+```
+
+The CLI finds the agents that you have installed. Then it puts the skill in the correct
+directory for each one. It supports Claude Code, OpenAI Codex, GitHub Copilot, Cursor, Cline,
+OpenCode, and more than 30 other agents.
+
+Install for one agent only:
+
+```bash
+npx skills add ChloeVPin/tdd-agent-skill -a claude-code
+```
+
+Install without a prompt, for a script or for CI:
+
+```bash
+npx skills add ChloeVPin/tdd-agent-skill -a claude-code -g -y
+```
+
+The CLI needs Node.js 22.20 or newer. Read the
+[skills CLI documentation](https://github.com/vercel-labs/skills) for the other options.
+
+### Read the skill before you install it
+
+A skill tells an agent what to do on your computer. Read it first. This rule applies to this
+skill and to every other skill.
+
+```bash
+npx skills use ChloeVPin/tdd-agent-skill --skill test-driven-development
+```
+
+You can also read [SKILL.md](skills/test-driven-development/SKILL.md) in your browser.
+
+### Manual installation with git
+
+Use this method if you do not have Node.js, or if you want to control the destination.
 
 ```bash
 git clone https://github.com/ChloeVPin/tdd-agent-skill.git
+```
+
+Then copy the directory into the skills directory of your agent.
+
+| Agent | Destination |
+|---|---|
+| Claude Code | `~/.claude/skills/` |
+| OpenAI Codex | `~/.codex/skills/` |
+| GitHub Copilot in VS Code | `.github/skills/` |
+| Hermes Agent | `~/.hermes/skills/software-development/` |
+
+```bash
 cp -R tdd-agent-skill/skills/test-driven-development ~/.claude/skills/
 ```
 
-### Hermes Agent
+The skill has no dependencies and it runs no scripts.
 
-```bash
-git clone https://github.com/ChloeVPin/tdd-agent-skill.git
-cp -R tdd-agent-skill/skills/test-driven-development ~/.hermes/skills/software-development/
-```
-
-### VS Code
-
-```bash
-git clone https://github.com/ChloeVPin/tdd-agent-skill.git
-cp -R tdd-agent-skill/skills/test-driven-development .github/skills/
-```
-
-### Any other agent
-
-Copy the `skills/test-driven-development/` directory into the skills directory of your tool.
-The skill has no dependencies and runs no scripts.
-
-Read [docs/INSTALL.md](docs/INSTALL.md) for verification steps and for the layout of each tool.
+Read [docs/INSTALL.md](docs/INSTALL.md) for the verification steps and for the layout of each
+tool.
 
 ## Evidence Summary
 
@@ -123,9 +159,22 @@ trials, and the authors record the risk of selection effects.
 
 ### Which agents does this skill support?
 
-It supports Claude Code, OpenAI Codex, GitHub Copilot in VS Code, Hermes Agent, and any tool
-that reads the `SKILL.md` Agent Skills format. The skill is Markdown. It has no dependencies
-and it runs no scripts.
+It supports Claude Code, OpenAI Codex, GitHub Copilot in VS Code, Cursor, Cline, OpenCode,
+Hermes Agent, and any tool that reads the `SKILL.md` Agent Skills format. The skill is
+Markdown. It has no dependencies and it runs no scripts.
+
+### What is the fastest way to install the skill?
+
+Run `npx skills add ChloeVPin/tdd-agent-skill`. The skills CLI finds the agents that you have
+installed and puts the skill in the correct directory for each one. The CLI needs Node.js
+22.20 or newer. If you do not have Node.js, clone the repository and copy the directory.
+
+### Is it safe to install a skill?
+
+A skill tells an agent what to do on your computer. Read it before you install it. Run
+`npx skills use ChloeVPin/tdd-agent-skill --skill test-driven-development` to print the skill,
+or read [SKILL.md](skills/test-driven-development/SKILL.md) in your browser.
+[SECURITY.md](SECURITY.md) lists the actions that this skill instructs an agent to do.
 
 ### How is this different from other TDD skills?
 

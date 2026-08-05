@@ -1,9 +1,52 @@
 # Installation
 
 This skill is one directory that contains Markdown files. It has no dependencies. It runs no
-scripts. To install it, copy the directory into the skills directory of your agent.
+scripts.
 
-## Before You Start
+There are two ways to install it. The skills CLI is the fast way. The manual copy gives you
+control of the destination.
+
+## Method 1: the skills CLI
+
+```bash
+npx skills add ChloeVPin/tdd-agent-skill
+```
+
+The CLI finds the agents that you have installed. Then it puts the skill in the correct
+directory for each one. The CLI needs Node.js 22.20 or newer.
+
+Install for one agent only:
+
+```bash
+npx skills add ChloeVPin/tdd-agent-skill -a claude-code
+```
+
+Install without a prompt, for a script or for CI:
+
+```bash
+npx skills add ChloeVPin/tdd-agent-skill -a claude-code -g -y
+```
+
+The flag `-g` installs the skill for your user account. The flag `-y` accepts the prompts.
+
+List the skills in this repository before you install:
+
+```bash
+npx skills add ChloeVPin/tdd-agent-skill --list
+```
+
+### Read the skill first
+
+A skill tells an agent what to do on your computer. Read it before you install it. This rule
+applies to this skill and to every other skill.
+
+```bash
+npx skills use ChloeVPin/tdd-agent-skill --skill test-driven-development
+```
+
+## Method 2: the manual copy
+
+Use this method if you do not have Node.js, or if your agent is not in the list of the CLI.
 
 Get the repository:
 
@@ -28,7 +71,13 @@ Copy the full directory. Do not copy `SKILL.md` alone. The skill refers to
 
 ## Claude Code
 
-Copy the skill into your personal skills directory:
+The CLI installs the skill with this command:
+
+```bash
+npx skills add ChloeVPin/tdd-agent-skill -a claude-code
+```
+
+To copy the skill manually, use your personal skills directory:
 
 ```bash
 mkdir -p ~/.claude/skills

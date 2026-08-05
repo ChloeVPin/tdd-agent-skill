@@ -123,6 +123,49 @@ jobs:
           print('The README images resolve.')
           PY
 
+      - name: Check that the README badges resolve
+        run: |
+          python3 - <<'PY'
+          import pathlib, re, sys, urllib.request, urllib.error
+
+          text = pathlib.Path('README.md').read_text(encoding='utf-8')
+          urls = sorted(set(re.findall(r'!\[[^\]]*\]\((https://img\.shields\.io/[^)]+)\)', text)))
+
+          if not urls:
+              sys.exit('No shields.io badges found in the README.')
+
+          failed = []
+          for url in urls:
+              try:
+                  request = urllib.request.Request(url, headers={'User-Agent': 'ci-check'})
+                  with urllib.request.urlopen(request, timeout=30) as response:
+                      body = response.read().decode('utf-8', 'replace')
+              except urllib.error.URLError as error:
+                  failed.append(f'{url} failed: {error}')
+                  continue
+
+              if response.status != 200:
+                  failed.append(f'{url} returned {response.status}')
+                  continue
+              if '<svg' not in body:
+                  failed.append(f'{url} did not return an SVG')
+                  continue
+
+              # shields.io answers a malformed request with HTTP 200 and an error
+              # badge, so the status code alone cannot detect a broken badge. The
+              # aria-label carries the rendered text.
+              label = re.search(r'aria-label="([^"]*)"', body)
+              label_text = label.group(1).lower() if label else ''
+              for bad in ('404', 'not found', 'invalid', 'inaccessible', 'error'):
+                  if bad in label_text:
+                      failed.append(f'{url} rendered an error badge: {label.group(1)}')
+                      break
+
+          if failed:
+              sys.exit('These badges do not resolve:\n' + '\n'.join(failed))
+          print(f'All {len(urls)} badges resolve.')
+          PY
+
       - name: Check the typography
         run: |
           python3 - <<'PY'

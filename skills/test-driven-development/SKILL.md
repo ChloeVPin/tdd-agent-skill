@@ -1,7 +1,7 @@
 ---
 name: test-driven-development
 description: "TDD for coding agents: RED-GREEN-REFACTOR with hard gates, stack discovery, anti-reward-hacking checks, and mutation-based proof that tests are real."
-version: 2.0.0
+version: 2.0.1
 author: chloevpin
 license: MIT
 platforms: [linux, macos, windows]
