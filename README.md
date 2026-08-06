@@ -117,7 +117,7 @@ You can also read [SKILL.md](skills/test-driven-development/SKILL.md) in your br
 Use this method if you do not have Node.js, or if you want to control the destination.
 
 ```bash
-git clone https://github.com/ChloeVPin/tdd-agent-skill.git
+git clone --branch v2.0.1 https://github.com/ChloeVPin/tdd-agent-skill.git
 ```
 
 Then copy the directory into the skills directory of your agent.
