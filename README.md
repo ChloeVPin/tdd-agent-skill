@@ -9,12 +9,13 @@
 Makes Claude Code, OpenAI Codex, and any `SKILL.md` agent prove their work instead of
 reporting that the work is complete.
 
-[![CI](https://img.shields.io/github/actions/workflow/status/ChloeVPin/tdd-agent-skill/validate.yml?style=flat-square&logo=githubactions&logoColor=white&label=CI)](https://github.com/ChloeVPin/tdd-agent-skill/actions/workflows/validate.yml)
-[![Install](https://img.shields.io/badge/install-npx_skills_add-000000?style=flat-square&logo=npm&logoColor=white)](#install)
-[![Agent Skills](https://img.shields.io/badge/SKILL.md-Agent_Skills-8A63D2?style=flat-square&logo=anthropic&logoColor=white)](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
-[![Release](https://img.shields.io/github/v/release/ChloeVPin/tdd-agent-skill?style=flat-square&logo=semanticrelease&logoColor=white&color=007ec6)](https://github.com/ChloeVPin/tdd-agent-skill/releases/latest)
-[![Licence: MIT](https://img.shields.io/badge/licence-MIT-3DA639?style=flat-square&logo=opensourceinitiative&logoColor=white)](LICENSE)
-[![English: ASD-STE100](https://img.shields.io/badge/English-ASD--STE100-0A7BBB?style=flat-square&logo=readthedocs&logoColor=white)](https://www.asd-ste100.org/)
+[![CI](https://img.shields.io/github/actions/workflow/status/ChloeVPin/tdd-agent-skill/validate.yml?style=flat&logo=githubactions&logoColor=white)](https://github.com/ChloeVPin/tdd-agent-skill/actions/workflows/validate.yml)
+[![Licence](https://img.shields.io/badge/licence-MIT-3DA639?style=flat&logo=opensourceinitiative&logoColor=white)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/ChloeVPin/tdd-agent-skill?style=flat&logo=semanticrelease&logoColor=white)](https://github.com/ChloeVPin/tdd-agent-skill/releases/latest)
+[![Stars](https://img.shields.io/github/stars/ChloeVPin/tdd-agent-skill?style=flat&logo=github&logoColor=white)](https://github.com/ChloeVPin/tdd-agent-skill/stargazers)
+[![Install](https://img.shields.io/badge/install-npx_skills_add-000000?style=flat&logo=npm&logoColor=white)](#install)
+[![Format](https://img.shields.io/badge/format-Agent_Skills-8A63D2?style=flat&logo=anthropic&logoColor=white)](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
+[![Style](https://img.shields.io/badge/style-ASD--STE100-0A7BBB?style=flat&logo=readthedocs&logoColor=white)](https://www.asd-ste100.org/)
 
 [Install](#install) · [Why This Exists](#why-this-exists) · [Evidence](skills/test-driven-development/references/evidence.md) · [FAQ](#frequently-asked-questions) · [Docs](docs/)
 
