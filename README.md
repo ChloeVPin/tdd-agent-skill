@@ -137,6 +137,18 @@ The skill has no dependencies and it runs no scripts.
 Read [docs/INSTALL.md](docs/INSTALL.md) for the verification steps and for the layout of each
 tool.
 
+## Verify the repository
+
+The repository includes a self-verification script. It runs the real CI checks, installs the
+skill with `npx skills add`, and confirms the badges and the live GitHub metadata.
+
+```bash
+make test
+```
+
+The command requires Python 3, `pip install pyyaml pillow`, Node.js 22.20 or newer, and the
+GitHub CLI.
+
 ## Evidence Summary
 
 The skill makes six empirical claims. Each one has a citation, a study design, and a statement

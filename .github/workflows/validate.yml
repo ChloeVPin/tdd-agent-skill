@@ -19,8 +19,8 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install PyYAML
-        run: pip install pyyaml
+      - name: Install PyYAML and Pillow
+        run: pip install pyyaml pillow
 
       - name: Validate the frontmatter
         run: |
@@ -165,6 +165,9 @@ jobs:
               sys.exit('These badges do not resolve:\n' + '\n'.join(failed))
           print(f'All {len(urls)} badges resolve.')
           PY
+
+      - name: Run the self-verification script
+        run: python3 scripts/verify.py
 
       - name: Check the typography
         run: |
