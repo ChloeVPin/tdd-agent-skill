@@ -1,3 +1,0 @@
-# Verification dependencies for scripts/verify.py
-pyyaml>=6.0
-pillow>=10.0
